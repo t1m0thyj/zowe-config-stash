@@ -13,7 +13,8 @@ function copyOrRemove(srcPath, destPath) {
 }
 
 function execGit(gitCmd, gitArgs, opts) {
-    childProcess.spawnSync("git", ["-C", __dirname, gitCmd, ...gitArgs], opts);
+    childProcess.spawnSync("git", ["-C", __dirname, gitCmd, ...gitArgs],
+        { stdio: "inherit", ...opts });
 }
 
 async function backupZoweConfig() {
@@ -55,7 +56,7 @@ async function restoreZoweConfig() {
         execGit("add", ["-A"]);
         console.log("[zc-stash] Created snapshot of Zowe configuration");
     }
-    execGit("stash", gitArgs, { stdio: "inherit" });
+    execGit("stash", gitArgs);
     if (gitArgs[0] === "apply" || gitArgs[0] === "pop") {
         await restoreZoweConfig();
         execGit("reset", ["--hard"]);
