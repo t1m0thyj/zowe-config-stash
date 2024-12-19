@@ -45,13 +45,19 @@ async function restoreZoweConfig() {
 (async () => {
     await CredentialManagerFactory.initialize({ service: null });
     const gitArgs = process.argv.slice(2);
+    let shouldClean = false;
     if (gitArgs[0] === "push" || gitArgs[0] === "save") {
         await backupZoweConfig();
         console.log("[zc-stash] Created snapshot of Zowe configuration");
+        shouldClean = true;
     }
     childProcess.spawnSync("git", ["-C", __dirname, "stash", ...gitArgs], { stdio: "inherit" });
     if (gitArgs[0] === "apply" || gitArgs[0] === "pop") {
         await restoreZoweConfig();
         console.log("[zc-stash] Restored snapshot of Zowe configuration");
+        shouldClean = true;
+    }
+    if (shouldClean) {
+        childProcess.spawnSync("git", ["-C", __dirname, "clean", "-f"]);
     }
 })();

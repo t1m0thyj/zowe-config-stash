@@ -5,7 +5,8 @@ Wrapper for `git stash` to backup and restore Zowe config files
 ## Installation
 
 1. Clone this repo
-2. Install globally: `npm install -g .`
+2. Install dependencies: `npm install`
+3. Install globally: `npm install -g .`
 
 ## Basic Usage
 
