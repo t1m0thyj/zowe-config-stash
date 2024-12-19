@@ -47,9 +47,11 @@ async function restoreZoweConfig() {
     const gitArgs = process.argv.slice(2);
     if (gitArgs[0] === "push" || gitArgs[0] === "save") {
         await backupZoweConfig();
+        console.log("[zc-stash] Created snapshot of Zowe configuration");
     }
     childProcess.spawnSync("git", ["-C", __dirname, "stash", ...gitArgs], { stdio: "inherit" });
     if (gitArgs[0] === "apply" || gitArgs[0] === "pop") {
         await restoreZoweConfig();
+        console.log("[zc-stash] Restored snapshot of Zowe configuration");
     }
 })();
