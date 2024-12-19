@@ -23,7 +23,7 @@ async function backupZoweConfig() {
         const destPath = path.join(__dirname, "project", fileName);
         copyOrRemove(srcPath, destPath);
     }
-    const secrets = await CredentialManagerFactory.manager.load("secure_config_props");
+    const secrets = await CredentialManagerFactory.manager.load("secure_config_props", true) || "{}";
     fs.writeFileSync(path.join(__dirname, ".secrets"), secrets);
 }
 
@@ -38,7 +38,8 @@ async function restoreZoweConfig() {
         const destPath = path.join(process.cwd(), fileName);
         copyOrRemove(srcPath, destPath);
     }
-    const secrets = fs.readFileSync(path.join(__dirname, ".secrets"), "utf-8");
+    const secretsPath = path.join(__dirname, ".secrets");
+    const secrets = fs.existsSync(secretsPath) ? fs.readFileSync(secretsPath, "utf-8") : "{}";
     await CredentialManagerFactory.manager.save("secure_config_props", secrets);
 }
 
