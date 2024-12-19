@@ -2,10 +2,11 @@
   "name": "zowe-config-stash",
   "version": "1.0.0",
   "main": "index.js",
+  "bin": {
+    "zc-stash": "index.js"
+  },
   "scripts": {
-    "apply": "node index.js apply",
-    "pop": "node index.js pop",
-    "push": "node index.js push",
+    "stash": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
