@@ -1,0 +1,21 @@
+{
+  "name": "zowe-config-stash",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "apply": "node index.js apply",
+    "pop": "node index.js pop",
+    "push": "node index.js push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@zowe/imperative": "^8.10.1"
+  },
+  "dependencies": {
+    "@zowe/secrets-for-zowe-sdk": "^8.1.2"
+  }
+}
