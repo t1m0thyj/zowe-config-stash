@@ -48,8 +48,7 @@ async function restoreZoweConfig() {
     if (gitArgs[0] === "push" || gitArgs[0] === "save") {
         await backupZoweConfig();
     }
-    childProcess.execSync(`git -C "${__dirname}" stash ${gitArgs.join(" ")}`,
-        { stdio: "inherit" });
+    childProcess.spawnSync("git", ["-C", __dirname, "stash", ...gitArgs], { stdio: "inherit" });
     if (gitArgs[0] === "apply" || gitArgs[0] === "pop") {
         await restoreZoweConfig();
     }
